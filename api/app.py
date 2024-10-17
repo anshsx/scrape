@@ -12,7 +12,7 @@ app = Flask(__name__)
 # Configure Gemini API key from environment variables
 genai.configure(api_key="AIzaSyCIXu3XkADDdgETLiCTVsF6XNR0_c1ZJWM")
 
-Set up the model configuration
+
 generation_config = {
     "temperature": 2,
     "top_p": 0.95,

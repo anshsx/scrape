@@ -12,7 +12,7 @@ app = Flask(__name__)
 # Configure Gemini API key from environment variables
 genai.configure(api_key="AIzaSyCIXu3XkADDdgETLiCTVsF6XNR0_c1ZJWM")
 
-# Set up the model configuration
+Set up the model configuration
 generation_config = {
     "temperature": 2,
     "top_p": 0.95,
@@ -60,6 +60,10 @@ def scrape_urls(urls):
                 if not any(keyword in src.lower() for keyword in ['logo', 'button', 'favicon', 'icon']):
                     images.append(src)
 
+            # Skip URLs with no content (empty content)
+            if not combined_content:
+                continue
+
             results.append({
                 'content': [item for item in combined_content if item],  # Filter empty content
                 'images': images  # Filtered content images
@@ -77,6 +81,10 @@ def summarize_combined_content(extracted_data):
         for content_item in url_data.get('content', [])
     )
     
+    # Skip summarization if there's no content to summarize
+    if not combined_content.strip():
+        return "No content available to summarize."
+
     # Start a chat session with the model
     chat_session = model.start_chat(history=[])
 
